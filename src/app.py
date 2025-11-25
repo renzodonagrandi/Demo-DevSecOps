@@ -32,7 +32,7 @@ def search():
 
 # Command injection (detectado)
 def list_directory(path):
-    os.system("ls " + path)
+    os.system("ls " + path) 
 
 
 # Dangerous eval (detectado)
