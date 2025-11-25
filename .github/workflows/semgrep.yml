@@ -1,8 +1,9 @@
 name: Semgrep SAST
 
 on:
-  push:
   pull_request:
+    branches:
+      - develop
 
 jobs:
   semgrep:
@@ -14,4 +15,4 @@ jobs:
       - name: Run Semgrep
         uses: returntocorp/semgrep-action@v1
         with:
-          config: "p/owasp"
+          config: "p/r2c-ci"
