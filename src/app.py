@@ -57,7 +57,7 @@ def evaluate_user_input(code):
     try:
         return ast.literal_eval(code) # parser seguro, no ejecuta codigo
     except Exception:
-        return "Invalid input" 
+        return "Invalid input"  
 
 
 if __name__ == "__main__":
