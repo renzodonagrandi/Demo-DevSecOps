@@ -37,4 +37,4 @@ def list_directory(path):
 
 # Dangerous eval (detectado)
 def evaluate_user_input(code):
-    return eval(code)
+    return eval(code)  
