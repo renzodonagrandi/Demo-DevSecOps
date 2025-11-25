@@ -19,9 +19,11 @@ jobs:
         env:
           SEMGREP_FORCE_FULL_SCAN: 1
         with:
-          config: >-
+          config: |
             p/owasp-top-ten
             p/python
+            p/security
             p/security-audit
             p/secrets
-          include: src/
+            p/secrets-basic
+            p/bandit

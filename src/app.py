@@ -10,7 +10,7 @@ API_KEY = "SECRET-12345-FAKE"
 # Insecure hash (detectado)
 import hashlib
 
-def insecure_hash(password): 
+def insecure_hash(password):
     return hashlib.md5(password.encode()).hexdigest()
 
 
