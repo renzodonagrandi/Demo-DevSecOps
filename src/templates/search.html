@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Resultados para: {{ term }}</h1>
+
+    <ul>
+    {% for r in results %}
+        <li>{{ r }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
