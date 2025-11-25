@@ -23,7 +23,5 @@ jobs:
             p/owasp-top-ten
             p/python
             p/security-audit
-            p/security
             p/secrets
-            p/secrets-basics
           include: src/
