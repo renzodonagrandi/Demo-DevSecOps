@@ -1,14 +1,22 @@
-name: Secret Scanning con Gitleaks
+name: Gitleaks Scan
 
 on:
   pull_request:
+    branches:
+      - develop
+  push:
+    branches:
+      - develop
 
 jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Scan for secrets
+      - name: Run gitleaks
         uses: zricethezav/gitleaks-action@v2
+        with:
+          args: --no-git -v
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

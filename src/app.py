@@ -1,12 +1,13 @@
 import os
 import sqlite3
 import hashlib
-from flask import Flask, request, render_template_string
+import ast
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
 # -----------------------------------------
-# 1) API KEY — corregido: ya no está hardcodeada
+# 1) API KEY — corregido (uso de variable de entorno)
 # -----------------------------------------
 API_KEY = os.getenv("API_KEY", "no-key-provided")
 
@@ -25,20 +26,23 @@ def get_user_by_name(name):
     conn = sqlite3.connect("test.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE name = ?", (name,))
-    return cursor.fetchall()
+    results = cursor.fetchall()
+    conn.close()
+    return results
 
 
 # -----------------------------------------
-# 4) XSS — corregido (sanitización automática con template)
+# 4) XSS — corregido (uso de template seguro)
 # -----------------------------------------
 @app.route("/search")
 def search():
     term = request.args.get("q", "")
-    return render_template_string("<h1>Resultados para: {{ term }}</h1>", term=term)
+    results = get_user_by_name(term)
+    return render_template("search.html", term=term, results=results)
 
 
 # -----------------------------------------
-# 5) Command Injection — corregido (sin shell=True)
+# 5) Command Injection — corregido (sin shell)
 # -----------------------------------------
 def list_directory(path):
     if not os.path.isdir(path):
@@ -49,10 +53,12 @@ def list_directory(path):
 # -----------------------------------------
 # 6) eval() — corregido (reemplazado por literal_eval)
 # -----------------------------------------
-import ast
-
 def evaluate_user_input(code):
     try:
         return ast.literal_eval(code)
     except Exception:
         return "Invalid input"
+
+
+if __name__ == "__main__":
+    app.run()
