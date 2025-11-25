@@ -1,4 +1,4 @@
-name: gitleaks
+name: Secret Scanning con gitleaks
 
 on:
   pull_request:
@@ -19,3 +19,5 @@ jobs:
         uses: zricethezav/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config: .gitleaks.toml

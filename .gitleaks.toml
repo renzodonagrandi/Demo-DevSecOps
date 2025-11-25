@@ -1,0 +1,9 @@
+title = "Custom Gitleaks Rules"
+description = "Rules to detect hardcoded secrets in this project"
+version = 2
+
+[[rules]]
+id = "hardcoded-api-key"
+description = "Detect hardcoded API keys"
+regex = '''(?i)API_KEY\s*=\s*["'][^"']+["']'''
+tags = ["secret", "key", "python"]
