@@ -9,10 +9,11 @@ jobs:
   semgrep:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Run Semgrep
+      - name: Run Semgrep (full scan)
         uses: returntocorp/semgrep-action@v1
+        env:
+          SEMGREP_FORCE_FULL_SCAN: 1
         with:
-          config: "auto"
+          config: auto
