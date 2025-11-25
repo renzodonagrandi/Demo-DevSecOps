@@ -4,7 +4,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-# Hardcoded secret (detectado por Semgrep)
+# Hardcoded secret (detectado por Semgrep) 
 API_KEY = "SECRET-12345-FAKE"
 
 # Insecure hash (detectado)
