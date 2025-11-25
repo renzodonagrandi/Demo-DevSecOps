@@ -53,7 +53,7 @@ def list_directory(path):
 # -----------------------------------------
 # 6) eval() — corregido (reemplazado por literal_eval)
 # -----------------------------------------
-def evaluate_user_input(code):  
+def evaluate_user_input(code): 
     try:
         return ast.literal_eval(code)
     except Exception:
