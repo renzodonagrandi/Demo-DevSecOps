@@ -23,7 +23,7 @@ def get_user_by_name(name):
     return cursor.fetchall()
 
 
-# XSS (detectado)
+# XSS Cross-Site-Scripting (detectado)
 @app.route("/search")
 def search():
     term = request.args.get("q")
