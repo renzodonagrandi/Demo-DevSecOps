@@ -20,4 +20,5 @@ jobs:
           SEMGREP_FORCE_FULL_SCAN: 1
         with:
           config: p/owasp-top-ten
+          args: --error
           include: src/
