@@ -1,64 +1,40 @@
 import os
 import sqlite3
-import hashlib
-import ast
-from flask import Flask, request, render_template
+from flask import Flask, request
 
 app = Flask(__name__)
 
-# -----------------------------------------
-# 1) API KEY — corregido (uso de variable de entorno)
-# -----------------------------------------
-API_KEY = os.getenv("API_KEY", "no-key-provided")
+# Hardcoded secret (detectado por Semgrep) 
+API_KEY = "SECRET-12345-FAKE"
+
+# Insecure hash (detectado)  
+import hashlib
+
+def insecure_hash(password):
+    return hashlib.md5(password.encode()).hexdigest()
 
 
-# -----------------------------------------
-# 2) Password hashing — corregido (SHA256)
-# -----------------------------------------
-def secure_hash(password):
-    return hashlib.sha256(password.encode()).hexdigest()
-
-
-# -----------------------------------------
-# 3) SQL Injection — corregido (query parametrizada)
-# -----------------------------------------
+# SQL Injection (detectado)
 def get_user_by_name(name):
     conn = sqlite3.connect("test.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE name = ?", (name,))
-    results = cursor.fetchall()
-    conn.close()
-    return results
+    query = f"SELECT * FROM users WHERE name = '{name}'"
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
-# -----------------------------------------
-# 4) XSS — corregido (uso de template seguro)
-# -----------------------------------------
+# XSS Cross-Site-Scripting (detectado)
 @app.route("/search")
 def search():
-    term = request.args.get("q", "")
-    results = get_user_by_name(term)
-    return render_template("search.html", term=term, results=results)
+    term = request.args.get("q")
+    return f"<h1>Resultados para: {term}</h1>"
 
 
-# -----------------------------------------
-# 5) Command Injection — corregido (sin shell)
-# -----------------------------------------
+# Command injection (detectado)
 def list_directory(path):
-    if not os.path.isdir(path):
-        return []
-    return os.listdir(path)
+    os.system("ls " + path) 
 
 
-# -----------------------------------------
-# 6) eval() — corregido (reemplazado por literal_eval)
-# -----------------------------------------
-def evaluate_user_input(code):  
-    try:
-        return ast.literal_eval(code)
-    except Exception:
-        return "Invalid input"
-
-
-if __name__ == "__main__":
-    app.run()
+# Dangerous eval (detectado)
+def evaluate_user_input(code):
+    return eval(code)
