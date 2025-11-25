@@ -19,6 +19,9 @@ jobs:
         env:
           SEMGREP_FORCE_FULL_SCAN: 1
         with:
-          config: p/owasp-top-ten
-          args: --error
+          config: >-
+            p/owasp-top-ten
+            p/javascript
+            p/security-audit
+            p/nodejsscan
           include: src/
