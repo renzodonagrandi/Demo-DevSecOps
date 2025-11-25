@@ -1,15 +1,21 @@
-name: Secret Scanning con Gitleaks
+name: gitleaks
 
 on:
-  push:
   pull_request:
+    branches:
+      - develop
 
 jobs:
   gitleaks:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Scan for secrets
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Fix shallow clone
+        run: git fetch --unshallow
+
+      - name: Run gitleaks
         uses: zricethezav/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
