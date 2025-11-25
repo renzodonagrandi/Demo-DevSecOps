@@ -21,7 +21,7 @@ jobs:
         with:
           config: >-
             p/owasp-top-ten
-            p/javascript
+            p/python
             p/security-audit
-            p/nodejsscan
+            p/secrets
           include: src/
