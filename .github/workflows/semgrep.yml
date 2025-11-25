@@ -19,4 +19,4 @@ jobs:
         env:
           SEMGREP_FORCE_FULL_SCAN: 1
         with:
-          config: "auto"
+          config: p/owasp-top-ten
