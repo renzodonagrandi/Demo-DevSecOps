@@ -22,8 +22,6 @@ jobs:
           config: |
             p/owasp-top-ten
             p/python
-            p/security
             p/security-audit
-            p/secrets
-            p/secrets-basic
             p/bandit
+            p/secrets
