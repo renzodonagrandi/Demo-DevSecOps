@@ -9,7 +9,7 @@ const API_KEY = "12345-FAKE-KEY-DO-NOT-USE";
 app.get("/search", (req, res) => {
     const userInput = req.query.q;
 
-    // Inyección SQL: concatenar strings en queries
+    // Inyección SQL: concatenar strings en queries 
     const query = "SELECT * FROM users WHERE name = '" + userInput + "'";
 
     const connection = mysql.createConnection({
